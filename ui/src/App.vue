@@ -1,0 +1,47 @@
+<template>
+  <v-app>
+    <v-fade-transition mode="out-in">
+      <router-view />
+    </v-fade-transition>
+  </v-app>
+</template>
+
+<script>
+export default {
+  name: 'App',
+  created() {
+    this.$store.dispatch('auth/initAuth')
+  }
+}
+</script>
+
+<style>
+.v-application {
+  font-family: 'Inter', sans-serif !important;
+}
+
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-enter-from {
+  transform: translateX(-20px);
+  opacity: 0;
+}
+
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

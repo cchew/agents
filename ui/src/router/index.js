@@ -1,0 +1,55 @@
+import { createRouter, createWebHistory } from 'vue-router'
+import store from '../store'
+
+// Views
+import Login from '../views/Login.vue'
+import Dashboard from '../views/Dashboard.vue'
+
+const routes = [
+  {
+    path: '/',
+    redirect: '/tasks'
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/tasks',
+    name: 'Dashboard',
+    component: Dashboard,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/lists/:listId',
+    name: 'TaskList',
+    component: Dashboard,
+    meta: { requiresAuth: true }
+  }
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+})
+
+// Navigation guard
+router.beforeEach((to, from, next) => {
+  // TODO: Re-enable authentication when ready
+  next()
+  
+  // Previous implementation:
+  // const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  // const isAuthenticated = store.getters['auth/isAuthenticated']
+  // if (requiresAuth && !isAuthenticated) {
+  //   next('/login')
+  // } else if (to.path === '/login' && isAuthenticated) {
+  //   next('/tasks')
+  // } else {
+  //   next()
+  // }
+})
+
+export default router

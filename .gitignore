@@ -1,7 +1,9 @@
 __pycache__
 .chainlit
 agno/data
+node_modules
 tmp
 venv
 
+.DS_STORE
 credentials.json
