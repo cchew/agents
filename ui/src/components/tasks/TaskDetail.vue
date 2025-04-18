@@ -20,7 +20,16 @@
         @change="updateTaskStatus"
         class="mr-4"
       />
-      <div class="task-title text-h6">{{ task.title }}</div>
+      <div class="task-title-container">
+        <v-text-field
+          v-model="title"
+          variant="plain"
+          density="comfortable"
+          hide-details
+          class="task-title-field"
+          @change="updateTitle"
+        />
+      </div>
     </div>
     
     <v-card variant="outlined" class="mb-4">
@@ -155,6 +164,7 @@ export default {
   data() {
     return {
       completed: this.task.completed,
+      title: this.task.title,
       description: this.task.description || '',
       dueDate: this.task.dueDate || null,
       important: this.task.important,
@@ -190,6 +200,17 @@ export default {
       this.updateTask({
         id: this.task.id,
         updates: { completed: this.completed }
+      })
+    },
+    
+    updateTitle() {
+      if (!this.title.trim()) {
+        this.title = this.task.title
+        return
+      }
+      this.updateTask({
+        id: this.task.id,
+        updates: { title: this.title.trim() }
       })
     },
     
@@ -233,6 +254,7 @@ export default {
     task: {
       handler(newTask) {
         this.completed = newTask.completed
+        this.title = newTask.title
         this.description = newTask.description || ''
         this.dueDate = newTask.dueDate || null
         this.important = newTask.important
@@ -260,11 +282,24 @@ export default {
   line-height: 1.25rem !important;
 }
 
-.task-title {
+.task-title-container {
+  flex: 1;
+}
+
+.task-title-field {
   font-size: 1rem !important;
   font-weight: 500 !important;
   color: var(--v-secondary-darken-1) !important;
   line-height: 1.375rem !important;
+}
+
+.task-title-field :deep(.v-field__input) {
+  min-height: unset !important;
+  padding: 0 !important;
+}
+
+.task-title-field :deep(.v-field__field) {
+  min-height: unset !important;
 }
 
 .text-subtitle-2 {

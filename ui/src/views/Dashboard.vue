@@ -22,21 +22,15 @@
             </div>
             
             <!-- Task Detail -->
-            <div class="task-detail-container">
-              <TaskDetail
-                v-if="selectedTask"
-                :task="selectedTask"
-                @update="updateTask"
-                @close="closeTaskDetail"
-              />
-              <div v-else class="empty-state">
-                <v-icon size="64" color="secondary" class="mb-4">mdi-checkbox-marked-circle-outline</v-icon>
-                <h3 class="text-h5 font-weight-medium text-secondary">Select a task</h3>
-                <p class="text-body-1 text-medium-emphasis">
-                  Select a task to view its details or create a new task
-                </p>
+            <transition name="slide">
+              <div v-if="selectedTask" class="task-detail-container">
+                <TaskDetail
+                  :task="selectedTask"
+                  @update="updateTask"
+                  @close="closeTaskDetail"
+                />
               </div>
-            </div>
+            </transition>
           </div>
         </div>
       </v-container>
@@ -205,12 +199,13 @@ export default {
 }
 
 .task-detail-container {
-  flex: 1;
+  width: 340px;
   overflow-y: auto;
   background-color: var(--v-background-base);
   display: flex;
   flex-direction: column;
   border-left: 1px solid var(--v-divider-base);
+  flex-shrink: 0;
 }
 
 .empty-state {
@@ -256,13 +251,17 @@ export default {
   .task-list-container,
   .task-detail-container {
     flex: none;
-    height: 50%;
     width: 100%;
   }
   
   .task-list-container {
-    border-right: none;
-    border-bottom: 1px solid var(--v-divider-base);
+    height: 60%;
+  }
+  
+  .task-detail-container {
+    height: 40%;
+    border-left: none;
+    border-top: 1px solid var(--v-divider-base);
   }
 }
 </style>

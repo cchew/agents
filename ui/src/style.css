@@ -20,6 +20,20 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--v-secondary-darken-1);
 }
 
+/* Task Detail Slide Animation */
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s ease-in-out;
+}
+
+.slide-enter-from {
+  transform: translateX(100%);
+}
+
+.slide-leave-to {
+  transform: translateX(100%);
+}
+
 /* Task animations */
 .task-enter-active,
 .task-leave-active {
