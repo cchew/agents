@@ -33,13 +33,29 @@
     
     <template v-slot:append>
       <div class="d-flex align-center">
-        <v-btn
-          icon="mdi-star"
-          size="small"
-          :color="task.important ? 'warning' : undefined"
-          variant="text"
-          @click.stop="toggleImportant"
-        />
+        <v-tooltip location="top" text="Go do">
+          <template v-slot:activator="{ props }">
+            <v-btn
+              icon="mdi-play-circle-outline"
+              size="small"
+              variant="text"
+              v-bind="props"
+              @click.stop="goDoTask"
+            />
+          </template>
+        </v-tooltip>
+        <v-tooltip location="top" :text="task.important ? 'Make regular' : 'Make important'">
+          <template v-slot:activator="{ props }">
+            <v-btn
+              :icon="task.important ? 'mdi-star' : 'mdi-star-outline'"
+              size="small"
+              :color="task.important ? 'warning' : undefined"
+              variant="text"
+              v-bind="props"
+              @click.stop="toggleImportant"
+            />
+          </template>
+        </v-tooltip>
         
         <v-menu open-on-hover>
           <template v-slot:activator="{ props }">
@@ -134,6 +150,10 @@ export default {
       if (confirm(`Delete task "${this.task.title}"?`)) {
         this.$emit('delete', this.task.id)
       }
+    },
+    
+    goDoTask() {
+      this.$emit('go-do', this.task)
     }
   }
 }
