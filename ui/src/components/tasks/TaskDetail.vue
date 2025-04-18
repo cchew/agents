@@ -249,9 +249,77 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
+  background-color: var(--v-background-base);
+  color: var(--v-secondary-darken-1);
+}
+
+.text-h6 {
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  color: var(--v-secondary-darken-1) !important;
+  line-height: 1.25rem !important;
+}
+
+.task-title {
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  color: var(--v-secondary-darken-1) !important;
+  line-height: 1.375rem !important;
+}
+
+.text-subtitle-2 {
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  color: var(--v-textMuted-base) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
+}
+
+.v-card {
+  background-color: var(--v-surface-base) !important;
+  border: 1px solid var(--v-divider-base) !important;
+  border-radius: 4px !important;
+}
+
+.v-card :deep(.v-field) {
+  background-color: var(--v-background-base) !important;
+  border-radius: 4px !important;
+}
+
+.v-card :deep(.v-field__input) {
+  font-size: 0.875rem !important;
+  color: var(--v-secondary-darken-1) !important;
+}
+
+.v-card :deep(.v-field__outline) {
+  border-color: var(--v-divider-base) !important;
+}
+
+.v-card :deep(.v-label) {
+  font-size: 0.875rem !important;
+  color: var(--v-textMuted-base) !important;
+}
+
+.v-icon {
+  font-size: 18px !important;
+}
+
+.text-caption {
+  font-size: 0.75rem !important;
+  color: var(--v-textMuted-base) !important;
 }
 
 .date-picker {
   max-width: 200px;
+}
+
+.v-btn {
+  font-size: 0.875rem !important;
+  letter-spacing: 0 !important;
+}
+
+.v-switch :deep(.v-label) {
+  font-size: 0.875rem !important;
+  color: var(--v-secondary-darken-1) !important;
 }
 </style>

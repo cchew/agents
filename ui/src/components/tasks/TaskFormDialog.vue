@@ -208,4 +208,55 @@ export default {
 .date-picker {
   max-width: 180px;
 }
+
+.text-h5 {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: var(--v-secondary-darken-1) !important;
+  line-height: 1.375rem !important;
+}
+
+.v-card {
+  background-color: var(--v-surface-base) !important;
+  border: 1px solid var(--v-divider-base) !important;
+  border-radius: 4px !important;
+}
+
+.v-card :deep(.v-field) {
+  background-color: var(--v-background-base) !important;
+  border-radius: 4px !important;
+}
+
+.v-card :deep(.v-field__input) {
+  font-size: 0.875rem !important;
+  color: var(--v-secondary-darken-1) !important;
+}
+
+.v-card :deep(.v-field__outline) {
+  border-color: var(--v-divider-base) !important;
+}
+
+.v-card :deep(.v-label) {
+  font-size: 0.875rem !important;
+  color: var(--v-textMuted-base) !important;
+}
+
+.v-btn {
+  font-size: 0.875rem !important;
+  letter-spacing: 0 !important;
+}
+
+.v-switch :deep(.v-label) {
+  font-size: 0.875rem !important;
+  color: var(--v-secondary-darken-1) !important;
+}
+
+.v-list-item-title {
+  font-size: 0.875rem !important;
+  color: var(--v-secondary-darken-1) !important;
+}
+
+.v-icon {
+  font-size: 18px !important;
+}
 </style>

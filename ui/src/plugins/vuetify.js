@@ -5,19 +5,25 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
 const customTheme = {
-  dark: false,
+  dark: true,
   colors: {
-    background: '#F8F9FA',
-    surface: '#FFFFFF',
-    primary: '#5B76F7',
-    'primary-darken-1': '#3B5CF6',
-    secondary: '#9CA3AF',
-    'secondary-darken-1': '#6B7280',
-    accent: '#FF8A65',
-    error: '#F87171',
-    info: '#64B5F6',
-    success: '#4CAF50',
-    warning: '#FB8C00',
+    background: '#313338',
+    surface: '#313338',
+    primary: '#5865F2',
+    'primary-darken-1': '#4752C4',
+    secondary: '#B5BAC1',
+    'secondary-darken-1': '#ffffff',
+    accent: '#5865F2',
+    error: '#ED4245',
+    info: '#949BA4',
+    success: '#57F287',
+    warning: '#FEE75C',
+    sidebar: '#2B2D31',
+    header: '#313338',
+    channelHover: '#404249',
+    textMuted: '#949BA4',
+    divider: '#3F4147',
+    messageHover: '#2E3035'
   }
 }
 

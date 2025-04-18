@@ -200,15 +200,17 @@ export default {
 .task-list-container {
   flex: 1;
   overflow-y: auto;
-  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  border-right: none;
+  background-color: var(--v-background-base);
 }
 
 .task-detail-container {
   flex: 1;
   overflow-y: auto;
-  background-color: #f9f9f9;
+  background-color: var(--v-background-base);
   display: flex;
   flex-direction: column;
+  border-left: 1px solid var(--v-divider-base);
 }
 
 .empty-state {
@@ -219,6 +221,24 @@ export default {
   height: 100%;
   padding: 2rem;
   text-align: center;
+  background-color: var(--v-background-base);
+}
+
+.empty-state .v-icon {
+  color: var(--v-textMuted-base) !important;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  color: var(--v-secondary-darken-1) !important;
+  margin-bottom: 8px;
+}
+
+.empty-state p {
+  font-size: 0.875rem !important;
+  color: var(--v-textMuted-base) !important;
 }
 
 .add-task-btn {
@@ -242,7 +262,7 @@ export default {
   
   .task-list-container {
     border-right: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid var(--v-divider-base);
   }
 }
 </style>

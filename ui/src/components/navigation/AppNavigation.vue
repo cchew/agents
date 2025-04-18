@@ -334,6 +334,65 @@ export default {
 
 <style scoped>
 .app-navigation {
-  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  background-color: var(--v-sidebar-base) !important;
+  border-right: 1px solid var(--v-divider-base);
+}
+
+.v-list {
+  background-color: transparent !important;
+  padding: 0 8px !important;
+}
+
+.v-list-item {
+  min-height: 32px !important;
+  padding: 0 8px !important;
+  margin-bottom: 2px;
+  border-radius: 4px !important;
+  color: var(--v-textMuted-base) !important;
+  font-size: 0.9375rem !important;
+}
+
+.v-list-item:hover {
+  background-color: var(--v-channelHover-base) !important;
+  color: var(--v-secondary-darken-1) !important;
+}
+
+.v-list-item--active {
+  background-color: var(--v-channelHover-base) !important;
+  color: var(--v-secondary-darken-1) !important;
+}
+
+.v-list-item-title {
+  font-size: 0.9375rem !important;
+  font-weight: 400 !important;
+  color: var(--v-textMuted-base) !important;
+}
+
+.v-list-item--active .v-list-item-title {
+  color: var(--v-secondary-darken-1) !important;
+}
+
+.text-caption {
+  color: var(--v-textMuted-base) !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
+  padding: 18px 8px 4px 8px !important;
+}
+
+.v-divider {
+  border-color: var(--v-divider-base) !important;
+  margin: 8px 0 !important;
+  opacity: 0.6 !important;
+}
+
+.v-list-item :deep(.v-icon) {
+  color: var(--v-textMuted-base) !important;
+  font-size: 18px !important;
+}
+
+.v-list-item--active :deep(.v-icon) {
+  color: var(--v-secondary-darken-1) !important;
 }
 </style>

@@ -80,10 +80,16 @@ export default {
 .task-list {
   height: 100%;
   overflow-y: auto;
+  background-color: var(--v-background-base);
 }
 
 .task-list-items {
-  padding: 8px 12px;
+  padding: 16px !important;
+  background-color: transparent !important;
+}
+
+.task-list-items :deep(.v-list) {
+  background-color: transparent !important;
 }
 
 .empty-tasks {
@@ -94,5 +100,20 @@ export default {
   height: 100%;
   padding: 2rem;
   text-align: center;
+  color: var(--v-textMuted-base);
+}
+
+.empty-tasks .v-icon {
+  opacity: 0.5;
+  color: var(--v-textMuted-base) !important;
+}
+
+.empty-tasks h3 {
+  margin-bottom: 8px;
+  color: var(--v-secondary-darken-1);
+}
+
+.empty-tasks p {
+  color: var(--v-textMuted-base);
 }
 </style>

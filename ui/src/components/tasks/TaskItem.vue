@@ -142,16 +142,58 @@ export default {
 <style scoped>
 .task-item {
   transition: all 0.2s;
-  border: 1px solid transparent;
+  border-radius: 4px !important;
+  margin-bottom: 1px !important;
+  padding: 4px 8px !important;
+  min-height: 44px !important;
+  color: var(--v-secondary-base) !important;
 }
 
 .task-item:hover {
-  background-color: rgba(0, 0, 0, 0.03);
-  border-color: rgba(0, 0, 0, 0.08);
+  background-color: var(--v-messageHover-base) !important;
+}
+
+.task-item :deep(.v-list-item__content) {
+  padding: 0 8px !important;
 }
 
 .task-completed .task-title {
   text-decoration: line-through;
-  color: rgba(0, 0, 0, 0.38);
+  color: var(--v-textMuted-base);
+  opacity: 0.7;
+}
+
+.task-title {
+  font-size: 0.9375rem !important;
+  font-weight: 400 !important;
+  line-height: 1.375rem !important;
+  color: var(--v-secondary-darken-1) !important;
+}
+
+.task-subtitle {
+  font-size: 0.875rem !important;
+  color: var(--v-textMuted-base) !important;
+  opacity: 1 !important;
+  line-height: 1.25rem !important;
+}
+
+.v-btn--icon {
+  color: var(--v-textMuted-base) !important;
+}
+
+.v-btn--icon:hover {
+  color: var(--v-secondary-darken-1) !important;
+}
+
+.task-item :deep(.v-selection-control) {
+  min-height: 36px !important;
+}
+
+.task-item :deep(.v-selection-control__wrapper) {
+  opacity: 0.7;
+}
+
+.task-item:hover :deep(.v-selection-control__wrapper) {
+  opacity: 1;
 }
 </style>

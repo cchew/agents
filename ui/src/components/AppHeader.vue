@@ -129,12 +129,63 @@ export default {
 </script>
 
 <style scoped>
+.v-app-bar {
+  background-color: var(--v-header-base) !important;
+  border-bottom: 1px solid var(--v-divider-base) !important;
+  height: 48px !important;
+}
+
+.text-h5 {
+  color: var(--v-secondary-darken-1) !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  line-height: 48px !important;
+}
+
 .search-field {
-  max-width: 300px;
+  max-width: 240px;
+  background-color: #1E1F22 !important;
+  border-radius: 4px;
+  height: 28px !important;
+  min-height: 28px !important;
+}
+
+.search-field :deep(.v-field__input) {
+  color: var(--v-secondary-darken-1) !important;
+  font-size: 0.875rem !important;
+  min-height: 28px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.search-field :deep(.v-field__outline) {
+  border-color: transparent !important;
+  opacity: 1 !important;
+}
+
+.search-field :deep(.v-field__overlay) {
+  background-color: transparent !important;
+  opacity: 1 !important;
+}
+
+.search-field :deep(.v-icon) {
+  color: var(--v-textMuted-base) !important;
+  font-size: 18px !important;
 }
 
 .user-menu-card {
-  border-radius: 8px;
+  background-color: #1E1F22 !important;
+  color: var(--v-secondary-darken-1) !important;
+  border-radius: 4px;
+  margin-top: 8px !important;
+}
+
+.user-menu-card :deep(.v-card-text) {
+  color: var(--v-secondary-darken-1) !important;
+}
+
+.user-menu-card :deep(.text-medium-emphasis) {
+  color: var(--v-textMuted-base) !important;
 }
 
 @media (max-width: 600px) {
