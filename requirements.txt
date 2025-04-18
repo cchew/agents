@@ -1,6 +1,9 @@
 agno
 chainlit
 duckduckgo-search
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
 lancedb
 numpy
 openai
