@@ -27,6 +27,7 @@
             @toggle-complete="toggleComplete"
             @toggle-important="toggleImportant"
             @delete="deleteTask"
+            @go-do="goDoTask"
           />
         </v-slide-y-transition>
       </div>
@@ -71,6 +72,10 @@ export default {
     
     toggleImportant(taskId) {
       this.toggleTaskImportance(taskId)
+    },
+    
+    goDoTask(task) {
+      this.$emit('go-do', task)
     }
   }
 }

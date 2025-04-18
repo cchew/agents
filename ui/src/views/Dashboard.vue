@@ -12,18 +12,32 @@
           />
           
           <div class="task-container">
-            <!-- Task List -->
-            <div class="task-list-container">
+            <!-- Task List or Chat Interface -->
+            <div class="task-list-container" v-if="!chatMode">
               <TaskList 
                 :tasks="filteredTasks"
                 :loading="tasksLoading"
                 @select-task="selectTask"
+                @go-do="startChatMode"
               />
+            </div>
+            <div v-else class="chat-container">
+              <div class="d-flex align-center px-4 py-2 chat-header">
+                <v-btn
+                  icon="mdi-arrow-left"
+                  variant="text"
+                  size="small"
+                  @click="exitChatMode"
+                  class="mr-2"
+                />
+                <div class="text-subtitle-1 font-weight-medium">{{ chatTask.title }}</div>
+              </div>
+              <ChatInterface :task="chatTask" />
             </div>
             
             <!-- Task Detail -->
             <transition name="slide">
-              <div v-if="selectedTask" class="task-detail-container">
+              <div v-if="selectedTask && !chatMode" class="task-detail-container">
                 <TaskDetail
                   :task="selectedTask"
                   @update="updateTask"
@@ -38,6 +52,7 @@
     
     <!-- Add Task FAB -->
     <v-btn
+      v-if="!chatMode"
       color="primary"
       size="large"
       icon
@@ -64,6 +79,7 @@ import AppHeader from '../components/AppHeader.vue'
 import TaskList from '../components/tasks/TaskList.vue'
 import TaskDetail from '../components/tasks/TaskDetail.vue'
 import TaskFormDialog from '../components/tasks/TaskFormDialog.vue'
+import ChatInterface from '../components/chat/ChatInterface.vue'
 
 export default {
   name: 'Dashboard',
@@ -72,13 +88,16 @@ export default {
     AppHeader,
     TaskList,
     TaskDetail,
-    TaskFormDialog
+    TaskFormDialog,
+    ChatInterface
   },
   data() {
     return {
       showTaskDialog: false,
       editingTask: null,
-      searchResults: null
+      searchResults: null,
+      chatMode: false,
+      chatTask: null
     }
   },
   computed: {
@@ -95,6 +114,9 @@ export default {
     },
     
     currentListTitle() {
+      if (this.chatMode) {
+        return this.chatTask.title
+      }
       if (this.currentListId === 'all') {
         return 'All Tasks'
       } else if (this.currentListId === 'important') {
@@ -117,6 +139,7 @@ export default {
   watch: {
     $route() {
       this.clearSearch()
+      this.exitChatMode()
     }
   },
   created() {
@@ -165,6 +188,17 @@ export default {
     
     clearSearch() {
       this.searchResults = null
+    },
+    
+    startChatMode(task) {
+      this.chatTask = task
+      this.chatMode = true
+      this.closeTaskDetail()
+    },
+    
+    exitChatMode() {
+      this.chatMode = false
+      this.chatTask = null
     }
   }
 }
@@ -263,5 +297,23 @@ export default {
     border-left: none;
     border-top: 1px solid var(--v-divider-base);
   }
+}
+
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--v-background-base);
+  overflow: hidden;
+}
+
+.chat-header {
+  border-bottom: 1px solid var(--v-divider-base);
+  background-color: var(--v-surface-base);
+}
+
+.chat-header .text-subtitle-1 {
+  font-size: 0.875rem !important;
+  color: var(--v-secondary-darken-1);
 }
 </style>
