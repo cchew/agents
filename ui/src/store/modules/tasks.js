@@ -21,6 +21,27 @@ const getters = {
     return state.tasks
   },
   
+  searchTasks: (state) => (query, listId) => {
+    if (!query) {
+      // When no search query, respect the current list filter
+      if (listId === 'important') {
+        return state.tasks.filter(task => task.important)
+      } else if (listId === 'completed') {
+        return state.tasks.filter(task => task.completed)
+      } else if (listId) {
+        return state.tasks.filter(task => task.listId === listId)
+      }
+      return state.tasks
+    }
+    
+    const searchTerm = query.toLowerCase()
+    return state.tasks.filter(task => {
+      const titleMatch = task.title.toLowerCase().includes(searchTerm)
+      const descriptionMatch = task.description?.toLowerCase().includes(searchTerm) || false
+      return titleMatch || descriptionMatch
+    })
+  },
+  
   isLoading: (state) => state.loading,
   error: (state) => state.error,
   selectedTask: (state) => state.selectedTask,

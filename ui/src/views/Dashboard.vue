@@ -6,7 +6,10 @@
       <v-container fluid class="main-container pa-0">
         <div class="d-flex flex-column h-100">
           <!-- Header -->
-          <AppHeader :title="currentListTitle" />
+          <AppHeader 
+            :title="currentListTitle" 
+            @search="handleSearch"
+          />
           
           <div class="task-container">
             <!-- Task List -->
@@ -80,7 +83,8 @@ export default {
   data() {
     return {
       showTaskDialog: false,
-      editingTask: null
+      editingTask: null,
+      searchResults: null
     }
   },
   computed: {
@@ -110,7 +114,15 @@ export default {
     },
     
     filteredTasks() {
+      if (this.searchResults) {
+        return this.searchResults
+      }
       return this.tasksByList(this.currentListId)
+    }
+  },
+  watch: {
+    $route() {
+      this.clearSearch()
     }
   },
   created() {
@@ -151,6 +163,14 @@ export default {
         })
       }
       this.showTaskDialog = false
+    },
+    
+    handleSearch(results) {
+      this.searchResults = results
+    },
+    
+    clearSearch() {
+      this.searchResults = null
     }
   }
 }

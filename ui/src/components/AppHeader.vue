@@ -87,6 +87,7 @@ export default {
   },
   computed: {
     ...mapGetters('auth', ['currentUser']),
+    ...mapGetters('tasks', ['searchTasks']),
     
     user() {
       return this.currentUser
@@ -99,10 +100,17 @@ export default {
         .map(name => name[0])
         .join('')
         .toUpperCase()
+    },
+
+    filteredTasks() {
+      const currentListId = this.$route.params.listId || 'all'
+      return this.searchTasks(this.searchQuery, currentListId)
     }
   },
   methods: {
     ...mapActions('auth', ['logout']),
+    ...mapActions('tasks', ['setSelectedTask']),
+    
     async handleLogout() {
       try {
         await this.logout()
@@ -114,8 +122,7 @@ export default {
   },
   watch: {
     searchQuery(val) {
-      // Implement search functionality here
-      console.log('Searching for:', val)
+      this.$emit('search', this.filteredTasks)
     }
   }
 }
