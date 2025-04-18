@@ -1,0 +1,10 @@
+agno
+chainlit
+duckduckgo-search
+lancedb
+numpy
+openai
+pandas
+pypdf
+sqlalchemy
+streamlit
