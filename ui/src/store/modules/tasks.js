@@ -15,6 +15,8 @@ const getters = {
       return state.tasks.filter(task => task.important)
     } else if (listId === 'completed') {
       return state.tasks.filter(task => task.completed)
+    } else if (listId === 'all') {
+      return state.tasks
     } else if (listId) {
       return state.tasks.filter(task => task.listId === listId)
     }

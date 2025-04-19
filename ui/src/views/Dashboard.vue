@@ -203,9 +203,7 @@ export default {
       } else {
         this.addTask({
           ...task,
-          listId: this.currentListId !== 'all' && this.currentListId !== 'important' && this.currentListId !== 'completed' 
-            ? this.currentListId 
-            : 'default'
+          listId: this.currentListId === 'all' ? 'default' : this.currentListId
         })
       }
       this.showTaskDialog = false

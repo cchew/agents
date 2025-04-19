@@ -244,7 +244,7 @@ export default {
       showListDialog: false,
       showDeleteDialog: false,
       editingList: null,
-      deleteList: null,
+      selectedListToDelete: null,
       listForm: {
         name: '',
         icon: 'mdi-format-list-bulleted',
@@ -327,14 +327,14 @@ export default {
     },
     
     confirmDeleteList(list) {
-      this.deleteList = list
+      this.selectedListToDelete = list
       this.showDeleteDialog = true
     },
     
     deleteListConfirmed() {
-      if (this.deleteList) {
-        this.deleteList({ id: this.deleteList.id })
-        if (this.currentRoute === this.deleteList.id) {
+      if (this.selectedListToDelete) {
+        this.deleteList({ id: this.selectedListToDelete.id })
+        if (this.currentRoute === this.selectedListToDelete.id) {
           this.$router.push('/tasks')
         }
       }
