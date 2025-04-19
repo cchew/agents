@@ -24,6 +24,40 @@
             <div class="message-content" :class="{ 'mr-10': message.role === 'assistant', 'ml-10': message.role === 'user' }">
               <div class="message-bubble" :class="{ 'message-bubble-ai': message.role === 'assistant' }">
                 <div class="message-text" v-html="formatMessage(message.content)"></div>
+                <div class="message-feedback" v-if="message.role === 'assistant'">
+                  <v-btn
+                    icon
+                    size="x-small"
+                    variant="text"
+                    color="white"
+                    class="feedback-btn"
+                    :class="{ selected: isFeedbackSelected(message, 'up') }"
+                    @click="handleFeedback(message, 'up')"
+                  >
+                    <v-icon>mdi-thumb-up</v-icon>
+                  </v-btn>
+                  <v-btn
+                    icon
+                    size="x-small"
+                    variant="text"
+                    color="white"
+                    class="feedback-btn"
+                    :class="{ selected: isFeedbackSelected(message, 'down') }"
+                    @click="handleFeedback(message, 'down')"
+                  >
+                    <v-icon>mdi-thumb-down</v-icon>
+                  </v-btn>
+                  <v-btn
+                    icon
+                    size="x-small"
+                    variant="text"
+                    color="white"
+                    class="feedback-btn"
+                    @click="openFeedbackDialog(message)"
+                  >
+                    <v-icon>mdi-message-text</v-icon>
+                  </v-btn>
+                </div>
               </div>
               <div class="message-time text-caption text-medium-emphasis">
                 {{ formatTime(message.timestamp || new Date()) }}
@@ -67,6 +101,44 @@
         </v-btn>
       </v-form>
     </div>
+
+    <!-- Feedback Dialog -->
+    <v-dialog v-model="showFeedbackDialog" max-width="500px">
+      <v-card>
+        <v-card-title class="text-h6">
+          Provide Feedback
+        </v-card-title>
+        <v-card-text>
+          <v-textarea
+            v-model="feedbackText"
+            label="Your feedback"
+            rows="4"
+            variant="outlined"
+            :rules="[v => !!v || 'Feedback is required']"
+          ></v-textarea>
+          <p class="text-caption text-medium-emphasis mt-2">
+            This will create a GitHub Issue with the conversation ID. <br/>Please do not provide any sensitive information in your feedback.
+          </p>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            variant="text"
+            @click="showFeedbackDialog = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            color="primary"
+            :disabled="!feedbackText"
+            @click="submitFeedback"
+          >
+            Submit
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -101,7 +173,13 @@ export default {
   data() {
     return {
       newMessage: '',
-      localMessages: []
+      localMessages: [],
+      showFeedbackDialog: false,
+      feedbackText: '',
+      isPrivateFeedback: true,
+      createGitHubIssue: false,
+      selectedMessage: null,
+      messageFeedback: {} // Track feedback state for each message
     }
   },
   computed: {
@@ -128,6 +206,50 @@ export default {
         minute: '2-digit',
         hour12: true 
       }).toLowerCase()
+    },
+    
+    handleFeedback(message, type) {
+      const messageId = message.id || message.timestamp // Use timestamp as fallback ID
+      
+      // If clicking the same type, remove feedback
+      if (this.messageFeedback[messageId] === type) {
+        delete this.messageFeedback[messageId]
+      } else {
+        // Otherwise, update feedback
+        this.messageFeedback[messageId] = type
+      }
+      
+      // TODO: Implement feedback submission
+      console.log(`Feedback ${type} for message:`, message)
+    },
+    
+    isFeedbackSelected(message, type) {
+      const messageId = message.id || message.timestamp
+      return this.messageFeedback[messageId] === type
+    },
+    
+    openFeedbackDialog(message) {
+      this.selectedMessage = message
+      this.feedbackText = ''
+      this.isPrivateFeedback = true
+      this.createGitHubIssue = false
+      this.showFeedbackDialog = true
+    },
+    
+    submitFeedback() {
+      if (!this.feedbackText) return
+      
+      const feedback = {
+        message: this.selectedMessage,
+        text: this.feedbackText,
+        isPrivate: this.isPrivateFeedback,
+        createGitHubIssue: this.createGitHubIssue
+      }
+      
+      console.log('Submitting feedback:', feedback)
+      // TODO: Implement feedback submission
+      
+      this.showFeedbackDialog = false
     },
     
     async sendMessage() {
@@ -396,5 +518,48 @@ export default {
 
 .chat-messages::-webkit-scrollbar-thumb:hover {
   background: rgba(128, 128, 128, 0.3);
+}
+
+.message-feedback {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feedback-btn {
+  opacity: 0.7;
+  transition: all 0.2s ease;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 50%;
+  padding: 4px;
+}
+
+.feedback-btn:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.feedback-btn.selected {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  color: rgb(var(--v-theme-primary)) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.message-bubble-ai .feedback-btn.selected {
+  color: white !important;
+  background-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.message-bubble-ai .feedback-btn {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.message-bubble-ai .feedback-btn:hover {
+  background-color: rgba(255, 255, 255, 0.25) !important;
 }
 </style> 
