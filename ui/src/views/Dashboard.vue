@@ -12,13 +12,19 @@
           />
           
           <div class="task-container">
-            <!-- Task List or Chat Interface -->
+            <!-- Task List or Chat List -->
             <div class="task-list-container" v-if="!chatMode">
               <TaskList 
+                v-if="!isChatsRoute"
                 :tasks="filteredTasks"
                 :loading="tasksLoading"
                 @select-task="selectTask"
                 @go-do="startChatMode"
+              />
+              <ChatList
+                v-else
+                :loading="false"
+                @select-chat="selectChat"
               />
             </div>
             <div v-else class="chat-container">
@@ -32,12 +38,15 @@
                 />
                 <div class="text-subtitle-1 font-weight-medium">{{ chatTask.title }}</div>
               </div>
-              <ChatInterface :task="chatTask" />
+              <ChatInterface 
+                :task="chatTask"
+                :messages="selectedChat ? selectedChat.messages : []"
+              />
             </div>
             
             <!-- Task Detail -->
             <transition name="slide">
-              <div v-if="selectedTask && !chatMode" class="task-detail-container">
+              <div v-if="selectedTask && !chatMode && !isChatsRoute" class="task-detail-container">
                 <TaskDetail
                   :task="selectedTask"
                   @update="updateTask"
@@ -52,7 +61,7 @@
     
     <!-- Add Task FAB -->
     <v-btn
-      v-if="!chatMode"
+      v-if="!chatMode && !isChatsRoute"
       color="primary"
       size="large"
       icon
@@ -79,6 +88,7 @@ import AppHeader from '@/components/AppHeader'
 import TaskList from '@/components/tasks/TaskList'
 import TaskDetail from '@/components/tasks/TaskDetail'
 import TaskFormDialog from '@/components/tasks/TaskFormDialog'
+import ChatList from '@/components/chats/ChatList'
 import ChatInterface from '@/components/chats/ChatInterface'
 
 export default {
@@ -89,6 +99,7 @@ export default {
     TaskList,
     TaskDetail,
     TaskFormDialog,
+    ChatList,
     ChatInterface
   },
   data() {
@@ -97,16 +108,22 @@ export default {
       editingTask: null,
       searchResults: null,
       chatMode: false,
-      chatTask: null
+      chatTask: null,
+      selectedChat: null
     }
   },
   computed: {
     ...mapGetters('auth', ['currentUser']),
     ...mapGetters('tasks', ['tasksByList', 'isLoading', 'selectedTask']),
     ...mapGetters('lists', ['getListById']),
+    ...mapGetters('chats', ['allChats']),
     
     tasksLoading() {
       return this.isLoading
+    },
+    
+    isChatsRoute() {
+      return this.$route.path === '/chats'
     },
     
     currentListId() {
@@ -116,6 +133,9 @@ export default {
     currentListTitle() {
       if (this.chatMode) {
         return this.chatTask.title
+      }
+      if (this.isChatsRoute) {
+        return 'All Chats'
       }
       if (this.currentListId === 'all') {
         return 'All Tasks'
@@ -140,6 +160,7 @@ export default {
     $route() {
       this.clearSearch()
       this.exitChatMode()
+      this.selectedChat = null
     }
   },
   created() {
@@ -154,6 +175,14 @@ export default {
     
     selectTask(task) {
       this.setSelectedTask(task)
+    },
+    
+    selectChat(chat) {
+      this.selectedChat = chat
+      this.chatMode = true
+      this.chatTask = {
+        title: chat.name
+      }
     },
     
     closeTaskDetail() {

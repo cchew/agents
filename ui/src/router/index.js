@@ -4,8 +4,7 @@ import store from '@/store'
 // Views
 import Login from '@/views/Login'
 import Dashboard from '@/views/Dashboard'
-import Chats from '@/views/Chats'
-import ChatDetail from '@/views/ChatDetail'
+import ChatDetail from '@/components/chats/ChatDetail'
 
 const routes = [
   {
@@ -32,17 +31,9 @@ const routes = [
   },
   {
     path: '/chats',
-    component: Chats,
-    children: [
-      {
-        path: '',
-        redirect: '/chats/chat1'
-      },
-      {
-        path: ':chatId',
-        component: ChatDetail
-      }
-    ]
+    name: 'Chats',
+    component: Dashboard,
+    meta: { requiresAuth: true }
   }
 ]
 
