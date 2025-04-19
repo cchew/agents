@@ -35,6 +35,15 @@
       />
       
       <v-list-item
+        prepend-icon="mdi-chat"
+        title="All Chats"
+        :value="'chats'"
+        :to="'/chats'"
+        :active="currentRoute === 'chats'"
+        rounded="lg"
+      />
+      
+      <v-list-item
         prepend-icon="mdi-star"
         title="Important"
         :value="'important'"

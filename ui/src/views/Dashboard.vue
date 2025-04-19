@@ -74,12 +74,12 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import AppNavigation from '../components/navigation/AppNavigation.vue'
-import AppHeader from '../components/AppHeader.vue'
-import TaskList from '../components/tasks/TaskList.vue'
-import TaskDetail from '../components/tasks/TaskDetail.vue'
-import TaskFormDialog from '../components/tasks/TaskFormDialog.vue'
-import ChatInterface from '../components/chat/ChatInterface.vue'
+import AppNavigation from '@/components/navigation/AppNavigation'
+import AppHeader from '@/components/AppHeader'
+import TaskList from '@/components/tasks/TaskList'
+import TaskDetail from '@/components/tasks/TaskDetail'
+import TaskFormDialog from '@/components/tasks/TaskFormDialog'
+import ChatInterface from '@/components/chats/ChatInterface'
 
 export default {
   name: 'Dashboard',

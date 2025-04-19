@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import store from '../store'
+import store from '@/store'
 
 // Views
-import Login from '../views/Login.vue'
-import Dashboard from '../views/Dashboard.vue'
+import Login from '@/views/Login'
+import Dashboard from '@/views/Dashboard'
+import Chats from '@/views/Chats'
+import ChatDetail from '@/views/ChatDetail'
 
 const routes = [
   {
@@ -27,6 +29,20 @@ const routes = [
     name: 'TaskList',
     component: Dashboard,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/chats',
+    component: Chats,
+    children: [
+      {
+        path: '',
+        redirect: '/chats/chat1'
+      },
+      {
+        path: ':chatId',
+        component: ChatDetail
+      }
+    ]
   }
 ]
 
