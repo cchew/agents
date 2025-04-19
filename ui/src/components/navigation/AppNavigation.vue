@@ -278,6 +278,9 @@ export default {
     },
     
     currentRoute() {
+      if (this.$route.path === '/chats') {
+        return 'chats'
+      }
       return this.$route.params.listId || 'all'
     }
   },

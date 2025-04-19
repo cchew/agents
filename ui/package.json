@@ -9,14 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.4.19",
-    "vuetify": "^3.5.1",
-    "vuex": "^4.1.0",
-    "vue-router": "^4.2.5",
-    "firebase": "^10.8.0",
     "@mdi/font": "^7.4.47",
     "date-fns": "^3.3.1",
-    "uuid": "^9.0.1"
+    "firebase": "^10.8.0",
+    "highlight.js": "^11.11.1",
+    "marked": "^15.0.8",
+    "uuid": "^9.0.1",
+    "vue": "^3.4.19",
+    "vue-router": "^4.2.5",
+    "vuetify": "^3.5.1",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
