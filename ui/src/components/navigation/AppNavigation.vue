@@ -9,7 +9,7 @@
   >
     <v-list-item 
       prepend-avatar="https://cdn.vuetifyjs.com/images/logos/v.png"
-      :title="rail ? '' : 'Vue To Do'"
+      :title="rail ? '' : 'Go Do List'"
       nav
     >
       <template v-slot:append>
@@ -139,8 +139,7 @@
               v-model="listForm.icon"
               label="Icon"
               :items="listIcons"
-              item-title="text"
-              item-value="value"
+              item-title="title"
               variant="outlined"
               class="mt-2"
             >
@@ -153,34 +152,38 @@
                   <template v-slot:prepend>
                     <v-icon :icon="item.value" />
                   </template>
-                  <v-list-item-title>{{ item.title }}</v-list-item-title>
                 </v-list-item>
               </template>
             </v-select>
             
-            <v-radio-group
+            <v-select
               v-model="listForm.color"
-              label="List Color"
+              label="List Colour"
+              :items="listColors"
+              item-title="label"
+              variant="outlined"
               class="mt-2"
-              inline
             >
-              <v-radio
-                v-for="color in listColors"
-                :key="color.value"
-                :value="color.value"
-                :label="color.label"
-                hide-details
-              >
-                <template v-slot:label>
-                  <v-avatar :color="color.value" size="24" class="mr-2">
-                    <span v-if="listForm.color === color.value" class="text-white">
-                      <v-icon size="small">mdi-check</v-icon>
-                    </span>
-                  </v-avatar>
-                  {{ color.label }}
-                </template>
-              </v-radio>
-            </v-radio-group>
+              <template v-slot:selection="{ item }">
+                <v-avatar :color="item.value" size="24" class="mr-2">
+                  <span v-if="listForm.color === item.value" class="text-white">
+                    <v-icon size="small">mdi-check</v-icon>
+                  </span>
+                </v-avatar>
+                {{ item.label }}
+              </template>
+              <template v-slot:item="{ item, props }">
+                <v-list-item v-bind="props">
+                  <template v-slot:prepend>
+                    <v-avatar :color="item.value" size="24">
+                      <span v-if="listForm.color === item.value" class="text-white">
+                        <v-icon size="small">mdi-check</v-icon>
+                      </span>
+                    </v-avatar>
+                  </template>
+                </v-list-item>
+              </template>
+            </v-select>
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -210,7 +213,7 @@
         </v-card-title>
         <v-card-text>
           Are you sure you want to delete <strong>{{ deleteList?.name }}</strong>? 
-          All tasks will be moved to the default list.
+          All tasks will be unassigned.
         </v-card-text>
         <v-card-actions>
           <v-spacer />

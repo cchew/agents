@@ -74,13 +74,14 @@ const actions = {
         tasks = [
           {
             id: uuidv4(),
-            title: 'Welcome to Vue To Do',
-            description: 'This is a sample task to get you started',
+            title: 'Welcome to Go Do List',
+            description: 'This is your first task. You can edit, complete, or delete it.',
             completed: false,
             important: true,
             dueDate: new Date(Date.now() + 86400000).toISOString(),
             listId: 'default',
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           },
           {
             id: uuidv4(),

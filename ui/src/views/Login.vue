@@ -6,7 +6,7 @@
           <v-card class="login-card elevation-8">
             <v-card-title class="text-center pt-8 pb-4">
               <v-icon size="56" color="primary" class="mb-4">mdi-checkbox-marked-circle-outline</v-icon>
-              <h1 class="text-h4 font-weight-medium">Vue To Do</h1>
+              <h1 class="text-h4 font-weight-medium">Go Do List</h1>
               <p class="text-subtitle-1 text-medium-emphasis mt-2">Sign in to manage your tasks</p>
             </v-card-title>
             

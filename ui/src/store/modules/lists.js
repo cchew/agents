@@ -35,8 +35,8 @@ const actions = {
         lists = [
           {
             id: 'default',
-            name: 'Tasks',
-            icon: 'mdi-home',
+            name: 'Unassigned',
+            icon: 'mdi-inbox',
             color: 'primary',
             createdAt: new Date().toISOString()
           }
