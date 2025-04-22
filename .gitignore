@@ -6,4 +6,5 @@ tmp
 venv
 
 .DS_STORE
+.env
 credentials.json
