@@ -13,3 +13,7 @@ For the `/ui` folder:
 npm install
 npm run dev
 ```
+
+## Vue.js authentication
+
+1. [Vue.js Authentication 2 By Example](https://developer.auth0.com/resources/guides/spa/vue/basic-authentication/v2-javascript)
